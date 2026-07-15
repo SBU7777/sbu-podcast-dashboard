@@ -1,0 +1,7 @@
+[build]
+  command = "echo 'Building...'"
+  functions = "netlify/functions"
+  publish = "."
+
+[functions]
+  external_node_modules = ["@supabase/supabase-js"]
