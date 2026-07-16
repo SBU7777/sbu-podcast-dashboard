@@ -1,12 +1,13 @@
+Good idea! ✅ Yes! I'll give you the clean code right now with NO text at the top.
+Just the pure HTML code.
 
+Copy this entire code and paste it into your GitHub index.html:
 html<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SBU Podcast Dashboard</title>
-  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
     * {
@@ -16,40 +17,34 @@ html<!DOCTYPE html>
     }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-      background-color: #f5f5f5;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #f5f5f5;
       color: #333;
-    }
-
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 20px;
     }
 
     .header {
       background: linear-gradient(135deg, #0A0F14 0%, #1A2330 100%);
       color: white;
       padding: 40px 20px;
-      margin: -20px -20px 30px -20px;
       text-align: center;
     }
 
     .header h1 {
-      font-size: 32px;
-      margin-bottom: 10px;
+      font-size: 28px;
+      margin-bottom: 5px;
     }
 
-    .header p {
-      font-size: 16px;
-      opacity: 0.9;
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
     }
 
     .card {
       background: white;
       border: 1px solid #ddd;
       border-radius: 8px;
-      padding: 30px;
+      padding: 20px;
       margin-bottom: 20px;
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
@@ -58,20 +53,15 @@ html<!DOCTYPE html>
       background: #00B2FF;
       color: white;
       border: none;
-      padding: 12px 24px;
+      padding: 10px 20px;
       border-radius: 6px;
-      font-size: 16px;
       cursor: pointer;
-      transition: background 0.2s;
+      font-size: 14px;
+      margin-top: 10px;
     }
 
     .button:hover {
       background: #0099ff;
-    }
-
-    .button:disabled {
-      background: #ccc;
-      cursor: not-allowed;
     }
 
     .button-secondary {
@@ -92,45 +82,51 @@ html<!DOCTYPE html>
       background: #cc0000;
     }
 
-    .form-group {
-      margin-bottom: 20px;
-    }
-
-    label {
-      display: block;
-      margin-bottom: 8px;
-      font-weight: 500;
-    }
-
-    input[type="text"],
-    input[type="email"],
-    input[type="password"],
-    input[type="number"],
-    textarea {
+    input, textarea {
       width: 100%;
       padding: 10px;
       border: 1px solid #ddd;
       border-radius: 6px;
-      font-size: 14px;
+      margin-top: 8px;
       font-family: inherit;
+      font-size: 14px;
     }
 
-    textarea {
-      resize: vertical;
-      min-height: 100px;
+    label {
+      display: block;
+      font-weight: 600;
+      margin-top: 15px;
+      margin-bottom: 5px;
     }
 
-    input[type="file"] {
-      padding: 10px;
-      border: 1px dashed #00B2FF;
-      border-radius: 6px;
+    .tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      border-bottom: 2px solid #eee;
+    }
+
+    .tab {
+      background: none;
+      border: none;
+      padding: 12px 20px;
+      font-size: 14px;
       cursor: pointer;
+      color: #666;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -2px;
+    }
+
+    .tab.active {
+      color: #00B2FF;
+      border-bottom-color: #00B2FF;
     }
 
     .alert {
-      padding: 15px;
+      padding: 12px;
       border-radius: 6px;
-      margin-bottom: 20px;
+      margin-bottom: 15px;
+      font-size: 14px;
     }
 
     .alert-success {
@@ -145,611 +141,354 @@ html<!DOCTYPE html>
       border: 1px solid #f5c6cb;
     }
 
-    .alert-info {
-      background: #d1ecf1;
-      color: #0c5460;
-      border: 1px solid #bee5eb;
-    }
-
-    .episode-list {
-      display: grid;
-      gap: 15px;
-    }
-
-    .episode-card {
+    .episode-item {
       background: #f9f9f9;
       border: 1px solid #eee;
       border-radius: 6px;
-      padding: 20px;
+      padding: 15px;
+      margin-bottom: 15px;
       display: flex;
       justify-content: space-between;
       align-items: start;
     }
 
     .episode-info h3 {
-      margin-bottom: 8px;
-      color: #0A0F14;
+      margin-bottom: 5px;
+      font-size: 16px;
     }
 
     .episode-meta {
-      font-size: 13px;
+      font-size: 12px;
       color: #666;
-      margin-top: 10px;
+      margin-top: 8px;
     }
 
-    .episode-actions {
-      display: flex;
-      gap: 10px;
-    }
-
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 15px;
-      margin-bottom: 30px;
-    }
-
-    .stat-card {
-      background: #f9f9f9;
-      border: 1px solid #eee;
-      border-radius: 6px;
-      padding: 20px;
-      text-align: center;
-    }
-
-    .stat-number {
-      font-size: 32px;
-      font-weight: bold;
-      color: #00B2FF;
-      margin-bottom: 8px;
-    }
-
-    .stat-label {
-      font-size: 14px;
-      color: #666;
+    .hidden {
+      display: none;
     }
 
     .loading {
       text-align: center;
-      padding: 40px;
+      padding: 20px;
       color: #666;
-    }
-
-    .tabs {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 30px;
-      border-bottom: 2px solid #eee;
-    }
-
-    .tab {
-      background: none;
-      border: none;
-      padding: 12px 20px;
-      font-size: 16px;
-      cursor: pointer;
-      color: #666;
-      border-bottom: 2px solid transparent;
-      margin-bottom: -2px;
-      transition: color 0.2s;
-    }
-
-    .tab.active {
-      color: #00B2FF;
-      border-bottom-color: #00B2FF;
-    }
-
-    .auth-container {
-      max-width: 400px;
-      margin: 50px auto;
-    }
-
-    .progress-bar {
-      width: 100%;
-      height: 4px;
-      background: #eee;
-      border-radius: 2px;
-      margin-top: 10px;
-      overflow: hidden;
-    }
-
-    .progress-fill {
-      height: 100%;
-      background: #00B2FF;
-      width: 0%;
-      transition: width 0.3s;
-    }
-
-    .rss-info {
-      background: #e3f2fd;
-      border-left: 4px solid #00B2FF;
-      padding: 15px;
-      border-radius: 4px;
-      margin-bottom: 20px;
-    }
-
-    .rss-info p {
-      margin-bottom: 10px;
-      font-size: 14px;
     }
 
     .rss-url {
-      background: white;
-      padding: 10px;
+      background: #f0f7ff;
+      padding: 12px;
       border: 1px solid #00B2FF;
-      border-radius: 4px;
+      border-radius: 6px;
       font-family: monospace;
-      font-size: 13px;
+      font-size: 12px;
       word-break: break-all;
-    }
-
-    .copy-button {
-      background: #00B2FF;
-      color: white;
-      border: none;
-      padding: 8px 16px;
-      border-radius: 4px;
-      font-size: 13px;
-      cursor: pointer;
       margin-top: 10px;
     }
 
-    .copy-button:hover {
-      background: #0099ff;
+    .stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .stat {
+      background: #f9f9f9;
+      padding: 15px;
+      border-radius: 6px;
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 24px;
+      font-weight: bold;
+      color: #00B2FF;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: #666;
+      margin-top: 5px;
     }
   </style>
 </head>
 <body>
-  <div id="root"></div>
+  <div class="header">
+    <h1>Struggling Brothers United</h1>
+    <p>Podcast Dashboard</p>
+  </div>
 
-  <script type="text/babel">
-    const { useState, useEffect } = React;
+  <div class="container">
+    <div id="authSection" class="card">
+      <h2 style="margin-bottom: 15px;">Sign In / Sign Up</h2>
+      <label>Email</label>
+      <input type="email" id="email" placeholder="your@email.com">
+      
+      <label>Password</label>
+      <input type="password" id="password" placeholder="password">
+      
+      <button class="button" onclick="handleSignIn()">Sign In</button>
+      <button class="button button-secondary" onclick="handleSignUp()">Sign Up</button>
+      <div id="authError" class="alert alert-error hidden"></div>
+    </div>
 
-    const SUPABASE_URL = import.meta.env?.VITE_SUPABASE_URL || process.env.REACT_APP_SUPABASE_URL || '';
-    const SUPABASE_ANON_KEY = import.meta.env?.VITE_SUPABASE_ANON_KEY || process.env.REACT_APP_SUPABASE_ANON_KEY || '';
+    <div id="dashboardSection" class="hidden">
+      <div style="text-align: right; margin-bottom: 20px;">
+        <button class="button button-secondary" onclick="handleSignOut()">Sign Out</button>
+      </div>
 
+      <div class="tabs">
+        <button class="tab active" onclick="switchTab('episodes')">Episodes</button>
+        <button class="tab" onclick="switchTab('publish')">Publish</button>
+        <button class="tab" onclick="switchTab('feed')">RSS Feed</button>
+      </div>
+
+      <div id="episodesTab">
+        <div class="stats">
+          <div class="stat">
+            <div class="stat-number" id="totalEpisodes">0</div>
+            <div class="stat-label">Total Episodes</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number" id="totalDownloads">0</div>
+            <div class="stat-label">Total Downloads</div>
+          </div>
+        </div>
+        <div id="episodesList"></div>
+      </div>
+
+      <div id="publishTab" class="hidden">
+        <div class="card">
+          <h2 style="margin-bottom: 15px;">Publish New Episode</h2>
+          <div id="publishMessage"></div>
+          
+          <label>Episode Number</label>
+          <input type="number" id="episodeNumber" placeholder="1">
+          
+          <label>Title</label>
+          <input type="text" id="episodeTitle" placeholder="Episode title">
+          
+          <label>Description</label>
+          <textarea id="episodeDescription" placeholder="Episode description" style="min-height: 80px;"></textarea>
+          
+          <label>MP3 File</label>
+          <input type="file" id="episodeFile" accept=".mp3">
+          
+          <button class="button" onclick="handlePublish()">Publish Episode</button>
+        </div>
+      </div>
+
+      <div id="feedTab" class="hidden">
+        <div class="card">
+          <h2 style="margin-bottom: 15px;">RSS Feed</h2>
+          <p style="margin-bottom: 15px;">Your podcast RSS feed:</p>
+          <div class="rss-url" id="rssUrl"></div>
+          <button class="button" onclick="copyRssUrl()">Copy URL</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
     let supabase = null;
+    let currentUser = null;
 
-    if (SUPABASE_URL && SUPABASE_ANON_KEY) {
-      supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-    }
+    const SUPABASE_URL = 'https://kfnafthesjwumjitascw.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtmbmFmdGhlc2p3dW11aml0YXNjdyIsInJvbGUiOiJhbm9uIiwiaWF0IjoxNzIxMTA3MjAwLCJleHAiOjE3MzY2NTkyMDB9.VqGzxTo8NzuTe3zXwj-5tA_EuayHBRVcH8mXfcL6xQ8';
 
-    function App() {
-      const [user, setUser] = useState(null);
-      const [loading, setLoading] = useState(true);
-      const [activeTab, setActiveTab] = useState('episodes');
+    supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-      useEffect(() => {
-        checkUser();
-      }, []);
-
-      const checkUser = async () => {
-        if (!supabase) {
-          setLoading(false);
-          return;
-        }
-        
-        const { data: { session } } = await supabase.auth.getSession();
-        setUser(session?.user || null);
-        setLoading(false);
-      };
-
-      if (!supabase) {
-        return (
-          <div className="container">
-            <div className="card">
-              <h2>Configuration Error</h2>
-              <p>Supabase credentials are not configured. Please set environment variables:</p>
-              <code>VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY</code>
-            </div>
-          </div>
-        );
-      }
-
-      if (loading) {
-        return <div className="loading">Loading...</div>;
-      }
-
-      if (!user) {
-        return <AuthPage supabase={supabase} onAuth={checkUser} />;
-      }
-
-      return (
-        <div>
-          <div className="header">
-            <h1>Struggling Brothers United</h1>
-            <p>Podcast Dashboard</p>
-          </div>
-          <div className="container">
-            <div style={{ textAlign: 'right', marginBottom: '20px' }}>
-              <button 
-                className="button button-secondary"
-                onClick={async () => {
-                  await supabase.auth.signOut();
-                  setUser(null);
-                }}
-              >
-                Sign Out
-              </button>
-            </div>
-
-            <div className="tabs">
-              <button 
-                className={`tab ${activeTab === 'episodes' ? 'active' : ''}`}
-                onClick={() => setActiveTab('episodes')}
-              >
-                Episodes
-              </button>
-              <button 
-                className={`tab ${activeTab === 'publish' ? 'active' : ''}`}
-                onClick={() => setActiveTab('publish')}
-              >
-                Publish New
-              </button>
-              <button 
-                className={`tab ${activeTab === 'feed' ? 'active' : ''}`}
-                onClick={() => setActiveTab('feed')}
-              >
-                RSS Feed
-              </button>
-            </div>
-
-            {activeTab === 'episodes' && <EpisodesTab supabase={supabase} />}
-            {activeTab === 'publish' && <PublishTab supabase={supabase} />}
-            {activeTab === 'feed' && <FeedTab supabase={supabase} />}
-          </div>
-        </div>
-      );
-    }
-
-    function AuthPage({ supabase, onAuth }) {
-      const [email, setEmail] = useState('');
-      const [password, setPassword] = useState('');
-      const [isSignUp, setIsSignUp] = useState(false);
-      const [loading, setLoading] = useState(false);
-      const [error, setError] = useState('');
-
-      const handleAuth = async (e) => {
-        e.preventDefault();
-        setLoading(true);
-        setError('');
-
-        try {
-          if (isSignUp) {
-            const { error } = await supabase.auth.signUp({
-              email,
-              password,
-            });
-            if (error) throw error;
-            setError('Check your email to confirm your account');
-          } else {
-            const { error } = await supabase.auth.signInWithPassword({
-              email,
-              password,
-            });
-            if (error) throw error;
-            onAuth();
-          }
-        } catch (err) {
-          setError(err.message);
-        } finally {
-          setLoading(false);
-        }
-      };
-
-      return (
-        <div className="auth-container">
-          <div className="card">
-            <h2 style={{ marginBottom: '20px' }}>
-              {isSignUp ? 'Create Account' : 'Sign In'}
-            </h2>
-
-            {error && <div className="alert alert-error">{error}</div>}
-
-            <form onSubmit={handleAuth}>
-              <div className="form-group">
-                <label>Email</label>
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                />
-              </div>
-
-              <div className="form-group">
-                <label>Password</label>
-                <input
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                />
-              </div>
-
-              <button className="button" disabled={loading} style={{ width: '100%', marginBottom: '10px' }}>
-                {loading ? 'Loading...' : (isSignUp ? 'Create Account' : 'Sign In')}
-              </button>
-            </form>
-
-            <button 
-              className="button button-secondary"
-              style={{ width: '100%' }}
-              onClick={() => {
-                setIsSignUp(!isSignUp);
-                setError('');
-              }}
-            >
-              {isSignUp ? 'Already have an account? Sign In' : 'Need an account? Sign Up'}
-            </button>
-          </div>
-        </div>
-      );
-    }
-
-    function PublishTab({ supabase }) {
-      const [episodeNumber, setEpisodeNumber] = useState('');
-      const [title, setTitle] = useState('');
-      const [description, setDescription] = useState('');
-      const [file, setFile] = useState(null);
-      const [loading, setLoading] = useState(false);
-      const [message, setMessage] = useState('');
-      const [uploadProgress, setUploadProgress] = useState(0);
-
-      const handlePublish = async (e) => {
-        e.preventDefault();
-        if (!episodeNumber || !title || !file) {
-          setMessage({ type: 'error', text: 'Fill in all required fields' });
-          return;
-        }
-
-        setLoading(true);
-        setMessage('');
-        setUploadProgress(0);
-
-        try {
-          // Upload file to Supabase storage
-          const fileName = `episode-${episodeNumber}-${Date.now()}.mp3`;
-          const { error: uploadError } = await supabase.storage
-            .from('podcast-episodes')
-            .upload(fileName, file);
-
-          if (uploadError) throw uploadError;
-          setUploadProgress(50);
-
-          // Get public URL
-          const { data } = supabase.storage
-            .from('podcast-episodes')
-            .getPublicUrl(fileName);
-
-          const audioUrl = data.publicUrl;
-          setUploadProgress(75);
-
-          // Save episode to database
-          const { error: dbError } = await supabase
-            .from('episodes')
-            .insert([{
-              episode_number: parseInt(episodeNumber),
-              title,
-              description,
-              audio_url: audioUrl,
-              published_at: new Date().toISOString(),
-            }]);
-
-          if (dbError) throw dbError;
-          setUploadProgress(100);
-
-          setMessage({ type: 'success', text: 'Episode published successfully!' });
-          setEpisodeNumber('');
-          setTitle('');
-          setDescription('');
-          setFile(null);
-        } catch (err) {
-          setMessage({ type: 'error', text: err.message });
-        } finally {
-          setLoading(false);
-        }
-      };
-
-      return (
-        <div className="card">
-          <h2 style={{ marginBottom: '20px' }}>Publish New Episode</h2>
-
-          {message && (
-            <div className={`alert alert-${message.type}`}>
-              {message.text}
-            </div>
-          )}
-
-          <form onSubmit={handlePublish}>
-            <div className="form-group">
-              <label>Episode Number *</label>
-              <input
-                type="number"
-                value={episodeNumber}
-                onChange={(e) => setEpisodeNumber(e.target.value)}
-                required
-              />
-            </div>
-
-            <div className="form-group">
-              <label>Episode Title *</label>
-              <input
-                type="text"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                placeholder="e.g., Identity - The Real Version of You"
-                required
-              />
-            </div>
-
-            <div className="form-group">
-              <label>Description</label>
-              <textarea
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                placeholder="Episode description (optional)"
-              />
-            </div>
-
-            <div className="form-group">
-              <label>Upload MP3 File *</label>
-              <input
-                type="file"
-                accept=".mp3"
-                onChange={(e) => setFile(e.files?.[0] || null)}
-                required
-              />
-            </div>
-
-            {uploadProgress > 0 && uploadProgress < 100 && (
-              <div className="progress-bar">
-                <div className="progress-fill" style={{ width: uploadProgress + '%' }}></div>
-              </div>
-            )}
-
-            <button className="button" disabled={loading} style={{ width: '100%' }}>
-              {loading ? 'Publishing...' : 'Publish Episode'}
-            </button>
-          </form>
-        </div>
-      );
-    }
-
-    function EpisodesTab({ supabase }) {
-      const [episodes, setEpisodes] = useState([]);
-      const [loading, setLoading] = useState(true);
-      const [stats, setStats] = useState({ total: 0, downloads: 0 });
-
-      useEffect(() => {
+    window.addEventListener('load', async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session) {
+        currentUser = session.user;
+        showDashboard();
         loadEpisodes();
-      }, []);
+      } else {
+        showAuth();
+      }
+    });
 
-      const loadEpisodes = async () => {
-        try {
-          const { data, error } = await supabase
-            .from('episodes')
-            .select('*')
-            .order('episode_number', { ascending: false });
+    function showAuth() {
+      document.getElementById('authSection').classList.remove('hidden');
+      document.getElementById('dashboardSection').classList.add('hidden');
+    }
 
-          if (error) throw error;
+    function showDashboard() {
+      document.getElementById('authSection').classList.add('hidden');
+      document.getElementById('dashboardSection').classList.remove('hidden');
+      document.getElementById('rssUrl').textContent = window.location.href.replace('index.html', '') + 'rss.xml';
+    }
 
-          setEpisodes(data || []);
-          setStats({
-            total: data?.length || 0,
-            downloads: data?.reduce((sum, ep) => sum + (ep.download_count || 0), 0) || 0,
-          });
-        } catch (err) {
-          console.error(err);
-        } finally {
-          setLoading(false);
-        }
-      };
+    async function handleSignIn() {
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
 
-      const deleteEpisode = async (id) => {
-        if (!confirm('Are you sure you want to delete this episode?')) return;
+      try {
+        const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+        if (error) throw error;
+        currentUser = data.user;
+        showDashboard();
+        loadEpisodes();
+      } catch (err) {
+        document.getElementById('authError').textContent = err.message;
+        document.getElementById('authError').classList.remove('hidden');
+      }
+    }
 
-        try {
-          const { error } = await supabase
-            .from('episodes')
-            .delete()
-            .eq('id', id);
+    async function handleSignUp() {
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
 
-          if (error) throw error;
-          loadEpisodes();
-        } catch (err) {
-          alert('Error deleting episode: ' + err.message);
-        }
-      };
+      try {
+        const { data, error } = await supabase.auth.signUp({ email, password });
+        if (error) throw error;
+        document.getElementById('authError').textContent = 'Check your email to confirm';
+        document.getElementById('authError').classList.remove('hidden');
+      } catch (err) {
+        document.getElementById('authError').textContent = err.message;
+        document.getElementById('authError').classList.remove('hidden');
+      }
+    }
 
-      if (loading) return <div className="loading">Loading episodes...</div>;
+    async function handleSignOut() {
+      await supabase.auth.signOut();
+      currentUser = null;
+      showAuth();
+    }
 
-      return (
-        <div>
-          <div className="stats">
-            <div className="stat-card">
-              <div className="stat-number">{stats.total}</div>
-              <div className="stat-label">Total Episodes</div>
-            </div>
-            <div className="stat-card">
-              <div className="stat-number">{stats.downloads}</div>
-              <div className="stat-label">Total Downloads</div>
-            </div>
-          </div>
+    async function loadEpisodes() {
+      try {
+        const { data, error } = await supabase
+          .from('episodes')
+          .select('*')
+          .order('episode_number', { ascending: false });
 
-          {episodes.length === 0 ? (
-            <div className="card">
-              <p>No episodes published yet.</p>
-            </div>
-          ) : (
-            <div className="episode-list">
-              {episodes.map((ep) => (
-                <div key={ep.id} className="episode-card">
-                  <div className="episode-info">
-                    <h3>Episode {ep.episode_number}: {ep.title}</h3>
-                    <p>{ep.description}</p>
-                    <div className="episode-meta">
-                      Published: {new Date(ep.published_at).toLocaleDateString()}
-                      <br />
-                      Downloads: {ep.download_count || 0}
-                    </div>
-                  </div>
-                  <div className="episode-actions">
-                    <button 
-                      className="button button-danger"
-                      onClick={() => deleteEpisode(ep.id)}
-                    >
-                      Delete
-                    </button>
-                  </div>
+        if (error) throw error;
+
+        document.getElementById('totalEpisodes').textContent = data?.length || 0;
+        document.getElementById('totalDownloads').textContent = data?.reduce((sum, ep) => sum + (ep.download_count || 0), 0) || 0;
+
+        const episodesList = document.getElementById('episodesList');
+        if (data && data.length > 0) {
+          episodesList.innerHTML = data.map(ep => `
+            <div class="episode-item">
+              <div class="episode-info">
+                <h3>Episode ${ep.episode_number}: ${ep.title}</h3>
+                <p>${ep.description || ''}</p>
+                <div class="episode-meta">
+                  Published: ${new Date(ep.published_at).toLocaleDateString()}
+                  | Downloads: ${ep.download_count || 0}
                 </div>
-              ))}
+              </div>
+              <button class="button button-danger" onclick="deleteEpisode(${ep.id})">Delete</button>
             </div>
-          )}
-        </div>
-      );
+          `).join('');
+        } else {
+          episodesList.innerHTML = '<div class="card">No episodes yet. Publish one to get started!</div>';
+        }
+      } catch (err) {
+        console.error('Error loading episodes:', err);
+      }
     }
 
-    function FeedTab({ supabase }) {
-      const currentHost = typeof window !== 'undefined' ? window.location.hostname : 'localhost';
-      const rssUrl = `https://${currentHost}/rss.xml`;
+    async function handlePublish() {
+      const episodeNumber = parseInt(document.getElementById('episodeNumber').value);
+      const title = document.getElementById('episodeTitle').value;
+      const description = document.getElementById('episodeDescription').value;
+      const file = document.getElementById('episodeFile').files[0];
+      const messageDiv = document.getElementById('publishMessage');
 
-      return (
-        <div className="card">
-          <h2 style={{ marginBottom: '20px' }}>RSS Feed</h2>
+      if (!episodeNumber || !title || !file) {
+        messageDiv.innerHTML = '<div class="alert alert-error">Fill in all required fields</div>';
+        return;
+      }
 
-          <div className="rss-info">
-            <p><strong>Your podcast RSS feed is live!</strong></p>
-            <p>Copy this URL and submit it to podcast apps like Apple Podcasts, Spotify, and Google Podcasts.</p>
-          </div>
+      try {
+        messageDiv.innerHTML = '<div class="alert alert-success">Publishing...</div>';
 
-          <p style={{ marginBottom: '10px' }}>RSS Feed URL:</p>
-          <div className="rss-url">
-            {rssUrl}
-          </div>
-          <button 
-            className="copy-button"
-            onClick={() => {
-              navigator.clipboard.writeText(rssUrl);
-              alert('Copied to clipboard!');
-            }}
-          >
-            Copy URL
-          </button>
+        const fileName = `episode-${episodeNumber}-${Date.now()}.mp3`;
+        const { error: uploadError } = await supabase.storage
+          .from('podcast-episodes')
+          .upload(fileName, file);
 
-          <div style={{ marginTop: '30px', paddingTop: '20px', borderTop: '1px solid #eee' }}>
-            <h3 style={{ marginBottom: '15px' }}>Submit to Podcast Apps:</h3>
-            <ul style={{ marginLeft: '20px', lineHeight: '1.8' }}>
-              <li><strong>Apple Podcasts:</strong> https://podcasts.apple.com/us/podcast/submit</li>
-              <li><strong>Spotify:</strong> https://podcasters.spotify.com</li>
-              <li><strong>Google Podcasts:</strong> https://podcastsmanager.google.com</li>
-            </ul>
-          </div>
-        </div>
-      );
+        if (uploadError) throw uploadError;
+
+        const { data } = supabase.storage
+          .from('podcast-episodes')
+          .getPublicUrl(fileName);
+
+        const { error: dbError } = await supabase
+          .from('episodes')
+          .insert([{
+            episode_number: episodeNumber,
+            title,
+            description,
+            audio_url: data.publicUrl,
+            published_at: new Date().toISOString(),
+          }]);
+
+        if (dbError) throw dbError;
+
+        messageDiv.innerHTML = '<div class="alert alert-success">Episode published! 🎉</div>';
+        document.getElementById('episodeNumber').value = '';
+        document.getElementById('episodeTitle').value = '';
+        document.getElementById('episodeDescription').value = '';
+        document.getElementById('episodeFile').value = '';
+
+        loadEpisodes();
+      } catch (err) {
+        messageDiv.innerHTML = `<div class="alert alert-error">Error: ${err.message}</div>`;
+      }
     }
 
-    ReactDOM.render(<App />, document.getElementById('root'));
+    async function deleteEpisode(id) {
+      if (!confirm('Delete this episode?')) return;
+
+      try {
+        const { error } = await supabase
+          .from('episodes')
+          .delete()
+          .eq('id', id);
+
+        if (error) throw error;
+        loadEpisodes();
+      } catch (err) {
+        alert('Error: ' + err.message);
+      }
+    }
+
+    function switchTab(tabName) {
+      document.querySelectorAll('[id$="Tab"]').forEach(tab => tab.classList.add('hidden'));
+      document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+
+      document.getElementById(tabName + 'Tab').classList.remove('hidden');
+      event.target.classList.add('active');
+    }
+
+    function copyRssUrl() {
+      const url = document.getElementById('rssUrl').textContent;
+      navigator.clipboard.writeText(url);
+      alert('RSS URL copied to clipboard!');
+    }
   </script>
 </body>
 </html>
+
+STEP 1: Go to GitHub
+https://github.com/SBU7777/sbu-podcast-dashboard/edit/main/index.html
+
+STEP 2: Replace ALL content
+
+Select all (Ctrl+A)
+Delete everything
+Paste the code above
+
+
+STEP 3: Commit
+
+Click "Commit changes"
+Click confirm
+
+
+Can you do that now?
+Tell me when you've committed it.
